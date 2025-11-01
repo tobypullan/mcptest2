@@ -16,6 +16,13 @@ def echo(text: str) -> str:
     """Echo text back to the caller."""
     return text
 
+@mcp.tool
+def doc_titles() -> list[str]:
+    """gives titles of all doc sections"""
+    return ["Step-by-step tutorial", "Session specification", "Plots"]
+
+def plot_types() -> list[str]:
+    return ["Bar chart", "Scatter plot", "Histogram", "Grouped vertical bar chart", "Circle pack plot", "Response surface scatter plot", "Line plot", "Surface plot from unstructured data"]
 # Expose an ASGI application for deployment (served by uvicorn on Render)
 app = mcp.http_app()
 
