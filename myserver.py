@@ -1,8 +1,13 @@
 # my_server.py
 from fastmcp import FastMCP
+from fastapi import FastAPI
+from fastapi.responses import FileResponse
+import os
+
 
 # Give your server a friendly name (clients will see this)
 mcp = FastMCP("Render Demo")
+app = FastAPI(title="MCP Image Server")
 
 # --- Example tools (add your own!) ---
 
@@ -91,12 +96,31 @@ def get_section_content(section: str) -> str:
     except KeyError as exc:
         raise ValueError(f"Unknown section: {section}") from exc
 
+@app.get("/static/{filename}")
+def get_image(filename: str):
+    return FileResponse(os.path.join("static", filename))
+
+@mcp.tool
+def generate_image(name: str) -> dict:
+    """
+    Returns a URL for an image based on a name.
+    For demo, just returns a pre-existing static image.
+    """
+    filename = f"{name}.png"
+    file_path = os.path.join("static", filename)
+    
+    url = f"/images/{filename}"
+    return {"image_url": url}
+
+
 @mcp.tool
 def bayesian_forcast_image() -> dict:
     return {"image_url": "https://mcptest-tprg.onrender.com/static/bayesian_forecasting_testset.png"}
 
 # Expose an ASGI application for deployment (served by uvicorn on Render)
-app = mcp.http_app()
+
+mcp_app = mcp.http_app(path="/mcp")
+app.mount("/mcp", mcp_app)
 
 # Optional: local dev HTTP run (uncomment to run locally via `python my_server.py`)
 # if __name__ == "__main__":
