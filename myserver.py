@@ -96,9 +96,9 @@ def get_section_content(section: str) -> str:
     except KeyError as exc:
         raise ValueError(f"Unknown section: {section}") from exc
 
-@app.get("/static/{filename}")
+@app.get("/{filename}")
 def get_image(filename: str):
-    return FileResponse(os.path.join("static", filename))
+    return FileResponse(filename)
 
 @mcp.tool
 def generate_image(name: str) -> dict:
@@ -112,10 +112,6 @@ def generate_image(name: str) -> dict:
     url = f"/images/{filename}"
     return {"image_url": url}
 
-
-@mcp.tool
-def bayesian_forcast_image() -> dict:
-    return {"image_url": "https://mcptest-tprg.onrender.com/static/bayesian_forecasting_testset.png"}
 
 # Expose an ASGI application for deployment (served by uvicorn on Render)
 
