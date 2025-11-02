@@ -96,21 +96,21 @@ def get_section_content(section: str) -> str:
     except KeyError as exc:
         raise ValueError(f"Unknown section: {section}") from exc
 
-@app.get("/{filename}")
-def get_image(filename: str):
-    return FileResponse(filename)
+# @app.get("/{filename}")
+# def get_image(filename: str):
+#     return FileResponse(filename)
 
-@mcp.tool
-def generate_image(name: str) -> dict:
-    """
-    Returns a URL for an image based on a name.
-    For demo, just returns a pre-existing static image.
-    """
-    filename = f"{name}.png"
-    file_path = os.path.join(filename)
+# @mcp.tool
+# def generate_image(name: str) -> dict:
+#     """
+#     Returns a URL for an image based on a name.
+#     For demo, just returns a pre-existing static image.
+#     """
+#     filename = f"{name}.png"
+#     file_path = os.path.join(filename)
     
-    url = f"/{filename}"
-    return {"image_url": url}
+#     url = f"/{filename}"
+#     return {"image_url": url}
 
 
 # Expose an ASGI application for deployment (served by uvicorn on Render)
