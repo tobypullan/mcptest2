@@ -91,6 +91,10 @@ def get_section_content(section: str) -> str:
     except KeyError as exc:
         raise ValueError(f"Unknown section: {section}") from exc
 
+@mcp.tool
+def bayesian_forcast_image() -> dict:
+    return {"image_url": "bayesian_forecasting_testset.png"}
+
 # Expose an ASGI application for deployment (served by uvicorn on Render)
 app = mcp.http_app()
 
