@@ -6,8 +6,8 @@ import os
 
 
 # Give your server a friendly name (clients will see this)
-mcp = FastMCP("Render Demo")
-app = FastAPI(title="MCP Image Server")
+mcp = FastMCP("Toby demo")
+app = FastAPI(title="MCP Server")
 
 # --- Example tools (add your own!) ---
 
@@ -107,15 +107,15 @@ def generate_image(name: str) -> dict:
     For demo, just returns a pre-existing static image.
     """
     filename = f"{name}.png"
-    file_path = os.path.join("static", filename)
+    file_path = os.path.join(filename)
     
-    url = f"/images/{filename}"
+    url = f"/{filename}"
     return {"image_url": url}
 
 
 # Expose an ASGI application for deployment (served by uvicorn on Render)
 
-mcp_app = mcp.http_app(path="/mcp")
+mcp_app = mcp.http_app()
 app.mount("/mcp", mcp_app)
 
 # Optional: local dev HTTP run (uncomment to run locally via `python my_server.py`)
