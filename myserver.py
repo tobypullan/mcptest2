@@ -27,14 +27,14 @@
 
 # my_server.py
 from fastmcp import FastMCP
-from fastapi import FastAPI
-from fastapi.responses import FileResponse
-import os
+# from fastapi import FastAPI
+# from fastapi.responses import FileResponse
+# import os
 
 
 # Give your server a friendly name (clients will see this)
 mcp = FastMCP("Toby demo")
-api = FastAPI(title="MCP Server")
+# api = FastAPI(title="MCP Server")
 
 # --- Example tools (add your own!) ---
 
@@ -142,8 +142,8 @@ def get_section_content(section: str) -> str:
 
 # Expose an ASGI application for deployment (served by uvicorn on Render)
 
-mcp_app = mcp.http_app()
-api.mount("/mcp", mcp_app)
+app = mcp.http_app()
+# api.mount("/mcp", mcp_app)
 
 # Optional: local dev HTTP run (uncomment to run locally via `python my_server.py`)
 # if __name__ == "__main__":
